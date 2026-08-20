@@ -23,9 +23,11 @@ Backend and frontend are built by different AI tools running in parallel, coordi
 
 **To Gemini** (headless CLI, via Bash/PowerShell):
 ```
-gemini --skip-trust -p "<scoped task, with the exact contract endpoint(s)/component(s) and relevant files named>"
+gemini --skip-trust -m gemini-flash-lite-latest -p "<scoped task, with the exact contract endpoint(s)/component(s) and relevant files named>"
 ```
 Capture and review the output/diff before treating it as done — Gemini is not reviewed by anyone else by default.
+
+**Always pass `-m gemini-flash-lite-latest` explicitly.** Without `-m`, the CLI defaults to `gemini-3.5-flash`, whose free-tier `GEMINI_API_KEY` quota is extremely low (`limit: 5`–`20` requests/day, observed directly in a 429 error) — an agentic coding task (plan → tool calls → file writes → verification) burns through that in a single dispatch. `gemini-flash-lite-latest` has a separate, much less restrictive quota pool and worked immediately when the default model was already exhausted for the day. Interactive OAuth login (a Google Pro/Code Assist subscription) was also tried as a way around the quota — it's a dead end for this CLI: Google returns `IneligibleTierError` and redirects to a separate product ("Antigravity"), regardless of subscription tier.
 
 ## Parallel dispatch
 
