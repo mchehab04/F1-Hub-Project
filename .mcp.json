@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "codex-backend": {
+      "command": "codex",
+      "args": ["mcp-server"]
+    }
+  }
+}
