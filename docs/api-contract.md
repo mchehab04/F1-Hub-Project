@@ -34,6 +34,10 @@ Scope: v1 features only, per `.claude/skills/agent-chatrooms/active/chatroom/cha
   "laps": 57,
   "first_gp_year": 2004,
   "lap_record": { "time": "1:31.447", "driver_id": "hamilton", "year": 2005 },
+  "technical_characteristic": {
+    "downforce_level": "medium",
+    "key_trait": "Long back straight rewards top speed, but the final sector is tight enough to punish a low-downforce setup."
+  },
   "trivia": [
     "The only circuit to have hosted a Grand Prix under floodlights for its entire duration since 2014.",
     "Turn 1 is one of the most common first-lap incident spots on the calendar."
@@ -42,6 +46,8 @@ Scope: v1 features only, per `.claude/skills/agent-chatrooms/active/chatroom/cha
 ```
 
 `lap_record` is `null` when the circuit is hosting its first-ever Grand Prix and no lap-time data exists yet.
+
+`technical_characteristic` is static, editorial metadata (not derived from telemetry) describing the car setup trade-off the circuit rewards. `downforce_level` is one of `"low" | "medium" | "high"` (e.g. Monaco/Hungaroring are `"high"`; Baku/Las Vegas are `"low"`). This is descriptive context for the explainability panel — it gives a human-readable reason behind the `circuit_overtaking_difficulty` feature's importance score, not a new endpoint or model input. Deliberately out of scope: prescriptive setup-optimization advice (tire degradation, aero balance modeling) — that's a different, much larger modeling effort and isn't planned.
 
 404 if `circuit_id` unknown.
 
