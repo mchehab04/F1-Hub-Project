@@ -3,6 +3,10 @@
     "codex-backend": {
       "command": "C:\\Users\\mcheh\\AppData\\Roaming\\npm\\codex.cmd",
       "args": ["mcp-server"]
+    },
+    "playwright": {
+      "command": "npx",
+      "args": ["-y", "@playwright/mcp@latest"]
     }
   }
 }

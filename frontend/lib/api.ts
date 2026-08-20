@@ -30,6 +30,10 @@ export interface Circuit {
   laps: number;
   first_gp_year: number;
   lap_record: { time: string; driver_id: string; year: number } | null;
+  technical_characteristic: {
+    downforce_level: "low" | "medium" | "high" | null;
+    key_trait: string | null;
+  };
   trivia: string[];
 }
 
