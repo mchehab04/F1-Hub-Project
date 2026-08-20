@@ -36,3 +36,5 @@ This file contains a growing ruleset that improves over time. **At session start
 ## Learned Rules
 
 <!-- New rules are appended below this line. Do not edit above this section. -->
+
+1. [PROCESS] Always write a short report after completing each stage/task and save it under `docs/reports/` — because the user wants a running, readable record of what was done and why at each step, not just the resulting code/artifacts. One file per stage, numbered in completion order (e.g. `01-feature-scoping.md`), covering: what was done, key decisions, outcomes, and files touched.
