@@ -1,7 +1,7 @@
 {
   "mcpServers": {
     "codex-backend": {
-      "command": "codex",
+      "command": "C:\\Users\\mcheh\\AppData\\Roaming\\npm\\codex.cmd",
       "args": ["mcp-server"]
     }
   }
