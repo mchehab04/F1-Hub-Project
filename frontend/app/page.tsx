@@ -73,23 +73,28 @@ export default function SeasonOverviewPage() {
           <h1 className="title">F1Hub Season Overview</h1>
           <p className="subtitle">Explore Formula 1 seasons, race calendars, and circuit details.</p>
         </div>
-        {!loadingSeasons && seasons.length > 0 && (
-          <div className="season-selector-wrapper">
-            <label htmlFor="season-select" className="selector-label">Season:</label>
-            <select
-              id="season-select"
-              className="season-selector"
-              value={selectedSeason ?? ''}
-              onChange={(e) => setSelectedSeason(Number(e.target.value))}
-            >
-              {seasons.map((s) => (
-                <option key={s} value={s}>
-                  {s}
-                </option>
-              ))}
-            </select>
-          </div>
-        )}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          <Link href="/standings" className="nav-link">
+            Standings
+          </Link>
+          {!loadingSeasons && seasons.length > 0 && (
+            <div className="season-selector-wrapper">
+              <label htmlFor="season-select" className="selector-label">Season:</label>
+              <select
+                id="season-select"
+                className="season-selector"
+                value={selectedSeason ?? ''}
+                onChange={(e) => setSelectedSeason(Number(e.target.value))}
+              >
+                {seasons.map((s) => (
+                  <option key={s} value={s}>
+                    {s}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
+        </div>
       </header>
 
       {error && (
