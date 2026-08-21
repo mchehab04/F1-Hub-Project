@@ -37,5 +37,8 @@ fastf1_cache/
 .DS_Store
 Thumbs.db
 
+# Playwright MCP verification artifacts (screenshots, console logs) -- ephemeral
+.playwright-mcp/
+
 # Claude Code ephemeral state
 .claude/scheduled_tasks.lock
