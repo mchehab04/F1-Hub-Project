@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { getRace, getCircuit, RaceDetail, Circuit, RaceStatus, DriverResultStatus } from '@/lib/api';
+import { TeamChip } from '@/components/TeamChip';
 
 export default function RaceDetailPage() {
   const params = useParams();
@@ -210,8 +211,15 @@ export default function RaceDetailPage() {
                       {result.finish_position !== null ? result.finish_position : '-'}
                     </td>
                     <td>{result.grid_position}</td>
-                    <td className="driver-cell">{result.driver_id}</td>
-                    <td>{result.constructor_name || result.constructor_id}</td>
+                    <td className="driver-cell">
+                      <Link href={`/drivers/${result.driver_id}`}>{result.driver_id}</Link>
+                    </td>
+                    <td>
+                      <TeamChip
+                        constructorId={result.constructor_id}
+                        label={result.constructor_name || result.constructor_id}
+                      />
+                    </td>
                     <td>
                       <span className={`status-pill status-${result.status}`}>
                         {getStatusBadgeText(result.status)}

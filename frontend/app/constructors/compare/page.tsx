@@ -4,6 +4,7 @@ import React, { Suspense, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { getSeasons, getConstructorStandings, compareConstructors } from '@/lib/api';
+import { getTeamColor } from '@/lib/teamColors';
 
 type CompareResult = Awaited<ReturnType<typeof compareConstructors>>;
 
@@ -228,8 +229,18 @@ function ConstructorCompareContent() {
               <thead>
                 <tr>
                   <th>Metric</th>
-                  <th>{result.constructor_a}</th>
-                  <th>{result.constructor_b}</th>
+                  <th
+                    className="compare-th-team"
+                    style={{ '--team-color': getTeamColor(result.constructor_a) } as React.CSSProperties}
+                  >
+                    {result.constructor_a}
+                  </th>
+                  <th
+                    className="compare-th-team"
+                    style={{ '--team-color': getTeamColor(result.constructor_b) } as React.CSSProperties}
+                  >
+                    {result.constructor_b}
+                  </th>
                 </tr>
               </thead>
               <tbody>

@@ -9,8 +9,10 @@ import {
   DriverStanding,
   ConstructorStanding,
 } from '@/lib/api';
+import { TeamChip } from '@/components/TeamChip';
+import { getTeamColor } from '@/lib/teamColors';
 
-function Sparkline({ trend }: { trend: number[] }) {
+function Sparkline({ trend, color }: { trend: number[]; color?: string }) {
   const max = Math.max(1, ...trend);
   return (
     <div className="sparkline" title={`Points per race: ${trend.join(', ')}`}>
@@ -18,7 +20,10 @@ function Sparkline({ trend }: { trend: number[] }) {
         <span
           key={i}
           className="sparkline-bar"
-          style={{ height: `${Math.max(6, (value / max) * 100)}%` }}
+          style={{
+            height: `${Math.max(6, (value / max) * 100)}%`,
+            backgroundColor: color,
+          }}
         />
       ))}
     </div>
@@ -164,15 +169,19 @@ export default function StandingsPage() {
                           <Link href={`/drivers/${standing.driver_id}`}>{standing.driver_id}</Link>
                         </td>
                         <td>
-                          <Link href={`/constructors/${standing.constructor_id}`}>
-                            {standing.constructor_name}
-                          </Link>
+                          <TeamChip
+                            constructorId={standing.constructor_id}
+                            label={standing.constructor_name}
+                          />
                         </td>
                         <td className="font-bold">{standing.points}</td>
                         <td>{standing.wins}</td>
                         <td>{standing.podiums}</td>
                         <td>
-                          <Sparkline trend={standing.trend} />
+                          <Sparkline
+                            trend={standing.trend}
+                            color={getTeamColor(standing.constructor_id)}
+                          />
                         </td>
                       </tr>
                     ))}
@@ -205,16 +214,20 @@ export default function StandingsPage() {
                     {constructorStandings.map((standing) => (
                       <tr key={standing.constructor_id} className={podiumClass(standing.position)}>
                         <td className="font-bold">{standing.position}</td>
-                        <td className="driver-cell">
-                          <Link href={`/constructors/${standing.constructor_id}`}>
-                            {standing.constructor_id}
-                          </Link>
+                        <td>
+                          <TeamChip
+                            constructorId={standing.constructor_id}
+                            label={standing.constructor_id}
+                          />
                         </td>
                         <td className="font-bold">{standing.points}</td>
                         <td>{standing.wins}</td>
                         <td>{standing.podiums}</td>
                         <td>
-                          <Sparkline trend={standing.trend} />
+                          <Sparkline
+                            trend={standing.trend}
+                            color={getTeamColor(standing.constructor_id)}
+                          />
                         </td>
                       </tr>
                     ))}

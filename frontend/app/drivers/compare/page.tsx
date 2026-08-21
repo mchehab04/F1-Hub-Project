@@ -3,7 +3,8 @@
 import React, { Suspense, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
-import { getSeasons, getDriverStandings, compareDrivers } from '@/lib/api';
+import { getSeasons, getDriverStandings, compareDrivers, DriverStanding } from '@/lib/api';
+import { getTeamColor } from '@/lib/teamColors';
 
 type CompareResult = Awaited<ReturnType<typeof compareDrivers>>;
 
@@ -35,7 +36,7 @@ function DriverCompareContent() {
   const [seasons, setSeasons] = useState<number[]>([]);
   const [rosterSeason, setRosterSeason] = useState<number | null>(null);
   const [scopeMode, setScopeMode] = useState<'season' | 'career'>('season');
-  const [roster, setRoster] = useState<string[]>([]);
+  const [roster, setRoster] = useState<DriverStanding[]>([]);
   const [driverA, setDriverA] = useState<string>(searchParams?.get('driver_a') ?? '');
   const [driverB, setDriverB] = useState<string>('');
 
@@ -65,7 +66,9 @@ function DriverCompareContent() {
     setLoadingRoster(true);
     getDriverStandings(rosterSeason)
       .then((data) => {
-        setRoster((data.standings || []).map((s) => s.driver_id).sort());
+        setRoster(
+          [...(data.standings || [])].sort((a, b) => a.driver_id.localeCompare(b.driver_id))
+        );
       })
       .catch((err) => setError(err.message || `Failed to fetch drivers for season ${rosterSeason}.`))
       .finally(() => setLoadingRoster(false));
@@ -133,9 +136,9 @@ function DriverCompareContent() {
               onChange={(e) => setDriverA(e.target.value)}
             >
               <option value="">Select a driver</option>
-              {roster.map((id) => (
-                <option key={id} value={id}>
-                  {id}
+              {roster.map((d) => (
+                <option key={d.driver_id} value={d.driver_id}>
+                  {d.driver_id}
                 </option>
               ))}
             </select>
@@ -152,9 +155,9 @@ function DriverCompareContent() {
               onChange={(e) => setDriverB(e.target.value)}
             >
               <option value="">Select a driver</option>
-              {roster.map((id) => (
-                <option key={id} value={id}>
-                  {id}
+              {roster.map((d) => (
+                <option key={d.driver_id} value={d.driver_id}>
+                  {d.driver_id}
                 </option>
               ))}
             </select>
@@ -224,8 +227,30 @@ function DriverCompareContent() {
               <thead>
                 <tr>
                   <th>Metric</th>
-                  <th>{result.driver_a}</th>
-                  <th>{result.driver_b}</th>
+                  <th
+                    className="compare-th-team"
+                    style={
+                      {
+                        '--team-color': getTeamColor(
+                          roster.find((d) => d.driver_id === result.driver_a)?.constructor_id
+                        ),
+                      } as React.CSSProperties
+                    }
+                  >
+                    {result.driver_a}
+                  </th>
+                  <th
+                    className="compare-th-team"
+                    style={
+                      {
+                        '--team-color': getTeamColor(
+                          roster.find((d) => d.driver_id === result.driver_b)?.constructor_id
+                        ),
+                      } as React.CSSProperties
+                    }
+                  >
+                    {result.driver_b}
+                  </th>
                 </tr>
               </thead>
               <tbody>

@@ -1,3 +1,28 @@
+:root {
+  --color-accent: #e4002b;
+  --color-accent-dark: #a80020;
+  --color-accent-light: #ffe5ea;
+  --color-ink: #0b0e14;
+  --color-bg: #f4f5f8;
+  --color-surface: #ffffff;
+  --color-text: #1f2937;
+  --color-text-strong: #0f172a;
+  --color-text-muted: #64748b;
+  --color-border: #e2e8f0;
+
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+
+  --shadow-sm: 0 1px 3px 0 rgba(15, 23, 42, 0.08);
+  --shadow-md: 0 4px 10px -2px rgba(15, 23, 42, 0.12), 0 2px 4px -2px rgba(15, 23, 42, 0.06);
+  --shadow-lg: 0 12px 20px -6px rgba(15, 23, 42, 0.14), 0 4px 6px -2px rgba(15, 23, 42, 0.06);
+
+  --font-display: var(--font-barlow-condensed), 'Arial Narrow', sans-serif;
+  --font-body: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
+    Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -5,10 +30,24 @@
 }
 
 body {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  color: #1f2937;
-  background-color: #f8fafc;
+  font-family: var(--font-body);
+  color: var(--color-text);
+  background-color: var(--color-bg);
   line-height: 1.5;
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
 }
 
 .container {
@@ -17,14 +56,55 @@ body {
   padding: 2.5rem 1.5rem;
 }
 
+/* Brand strip -- thin racing-stripe bar pinned to the top of every page */
+.brand-strip {
+  height: 5px;
+  width: 100%;
+  background-image: repeating-linear-gradient(
+    45deg,
+    var(--color-ink) 0,
+    var(--color-ink) 7px,
+    var(--color-accent) 7px,
+    var(--color-accent) 14px
+  );
+}
+
 /* Header & Selectors */
 .header {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
   margin-bottom: 2.5rem;
-  border-bottom: 1px solid #e2e8f0;
-  padding-bottom: 1.5rem;
+  position: relative;
+  overflow: hidden;
+  background-color: var(--color-surface);
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgba(11, 14, 20, 0.035) 0,
+    rgba(11, 14, 20, 0.035) 2px,
+    transparent 2px,
+    transparent 11px
+  );
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: 1.75rem 1.75rem 1.75rem 2.25rem;
+}
+
+.header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 6px;
+  background-image: repeating-linear-gradient(
+    45deg,
+    var(--color-ink) 0,
+    var(--color-ink) 6px,
+    var(--color-accent) 6px,
+    var(--color-accent) 12px
+  );
 }
 
 @media (min-width: 768px) {
@@ -36,14 +116,17 @@ body {
 }
 
 .title {
-  font-size: 2.25rem;
+  font-family: var(--font-display);
+  font-size: 2.5rem;
   font-weight: 800;
-  color: #0f172a;
-  letter-spacing: -0.025em;
+  color: var(--color-text-strong);
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  line-height: 1.1;
 }
 
 .subtitle {
-  color: #64748b;
+  color: var(--color-text-muted);
   font-size: 1.1rem;
   margin-top: 0.25rem;
 }
@@ -52,10 +135,10 @@ body {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  background: #ffffff;
+  background: var(--color-surface);
   padding: 0.5rem 1rem;
-  border-radius: 0.50rem;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-sm);
   border: 1px solid #cbd5e1;
 }
 
@@ -68,7 +151,7 @@ body {
 .season-selector {
   font-size: 1rem;
   font-weight: 600;
-  color: #0f172a;
+  color: var(--color-text-strong);
   background: transparent;
   border: none;
   outline: none;
@@ -82,7 +165,8 @@ body {
   align-items: center;
   padding: 0.25rem 0.75rem;
   border-radius: 9999px;
-  font-size: 0.75rem;
+  font-family: var(--font-display);
+  font-size: 0.8rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -139,20 +223,23 @@ body {
 }
 
 .race-card {
-  background: #ffffff;
-  border-radius: 0.75rem;
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
   padding: 1.5rem;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  border: 1px solid #e2e8f0;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-border);
+  border-top: 3px solid var(--color-accent);
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
 .race-card-link:hover .race-card {
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  box-shadow: var(--shadow-lg);
   border-color: #94a3b8;
+  border-top-color: var(--color-accent);
 }
 
 .race-card-header {
@@ -165,15 +252,16 @@ body {
 .race-round {
   font-size: 0.85rem;
   font-weight: 600;
-  color: #64748b;
+  color: var(--color-text-muted);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
 
 .race-name {
-  font-size: 1.25rem;
+  font-family: var(--font-display);
+  font-size: 1.4rem;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--color-text-strong);
   margin-bottom: 1rem;
 }
 
@@ -197,22 +285,29 @@ body {
 .back-link {
   display: inline-flex;
   align-items: center;
-  font-weight: 600;
-  color: #2563eb;
+  gap: 0.35rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--color-accent);
   text-decoration: none;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
+  transition: transform 0.15s ease;
 }
 
 .back-link:hover {
   text-decoration: underline;
+  transform: translateX(-3px);
 }
 
 .race-header-card {
-  background: #ffffff;
-  border-radius: 0.75rem;
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
   padding: 2rem;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-  border: 1px solid #e2e8f0;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-border);
+  border-left: 4px solid var(--color-accent);
   margin-bottom: 2rem;
 }
 
@@ -220,6 +315,8 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
 }
 
 .race-header-meta {
@@ -236,19 +333,35 @@ body {
 }
 
 .section-title {
-  font-size: 1.5rem;
+  position: relative;
+  font-family: var(--font-display);
+  font-size: 1.6rem;
   font-weight: 700;
-  color: #0f172a;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--color-text-strong);
   margin-bottom: 1rem;
+  padding-left: 0.9rem;
+}
+
+.section-title::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.15em;
+  bottom: 0.15em;
+  width: 4px;
+  border-radius: 2px;
+  background: var(--color-accent);
 }
 
 /* Circuit Card */
 .circuit-card {
-  background: #ffffff;
-  border-radius: 0.75rem;
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
   padding: 1.75rem;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-  border: 1px solid #e2e8f0;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-border);
 }
 
 .circuit-header {
@@ -263,14 +376,15 @@ body {
 }
 
 .circuit-name {
-  font-size: 1.25rem;
+  font-family: var(--font-display);
+  font-size: 1.4rem;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--color-text-strong);
 }
 
 .circuit-location {
   font-size: 0.95rem;
-  color: #64748b;
+  color: var(--color-text-muted);
   font-weight: 500;
 }
 
@@ -288,9 +402,9 @@ body {
 }
 
 .stat-item {
-  background: #f8fafc;
+  background: var(--color-bg);
   padding: 1rem;
-  border-radius: 0.5rem;
+  border-radius: var(--radius-sm);
   border: 1px solid #f1f5f9;
   display: flex;
   flex-direction: column;
@@ -299,16 +413,18 @@ body {
 
 .stat-label {
   font-size: 0.75rem;
-  font-weight: 600;
+  font-weight: 700;
   text-transform: uppercase;
-  color: #64748b;
+  color: var(--color-accent);
   letter-spacing: 0.05em;
 }
 
 .stat-value {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: #0f172a;
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--color-text-strong);
+  font-variant-numeric: tabular-nums;
 }
 
 .capitalize {
@@ -316,11 +432,11 @@ body {
 }
 
 .lap-record-box {
-  background: #eff6ff;
-  border: 1px solid #bfdbfe;
-  color: #1e40af;
+  background: var(--color-accent-light);
+  border: 1px solid #ffb8c6;
+  color: var(--color-accent-dark);
   padding: 0.75rem 1rem;
-  border-radius: 0.5rem;
+  border-radius: var(--radius-sm);
   font-size: 0.95rem;
   margin-bottom: 1.5rem;
 }
@@ -332,9 +448,12 @@ body {
 }
 
 .trivia-title {
-  font-size: 1rem;
-  font-weight: 600;
-  color: #0f172a;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--color-text-strong);
   margin-bottom: 0.5rem;
 }
 
@@ -351,10 +470,10 @@ body {
 .table-responsive {
   width: 100%;
   overflow-x: auto;
-  background: #ffffff;
-  border-radius: 0.75rem;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-  border: 1px solid #e2e8f0;
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-border);
 }
 
 .results-table {
@@ -365,14 +484,15 @@ body {
 }
 
 .results-table th {
-  background: #f8fafc;
-  color: #475569;
-  font-weight: 600;
+  background: var(--color-bg);
+  color: var(--color-text-strong);
+  font-family: var(--font-display);
+  font-weight: 700;
   padding: 1rem;
-  border-bottom: 1px solid #e2e8f0;
+  border-bottom: 2px solid var(--color-accent);
   text-transform: uppercase;
-  font-size: 0.75rem;
-  letter-spacing: 0.05em;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
 }
 
 .results-table td {
@@ -381,12 +501,16 @@ body {
   color: #1f2937;
 }
 
+.results-table tr {
+  transition: background-color 0.12s ease;
+}
+
 .results-table tr:last-child td {
   border-bottom: none;
 }
 
 .results-table tr:hover {
-  background: #f8fafc;
+  background: var(--color-bg);
 }
 
 .results-table td a {
@@ -396,7 +520,7 @@ body {
 
 .results-table td a:hover {
   text-decoration: underline;
-  color: #2563eb;
+  color: var(--color-accent);
 }
 
 /* Race replay controls */
@@ -405,55 +529,92 @@ body {
   align-items: center;
   gap: 1rem;
   flex-wrap: wrap;
-  background: #ffffff;
+  background: var(--color-surface);
   padding: 1.25rem;
-  border-radius: 0.75rem;
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
   margin-bottom: 2rem;
-}
-
-.replay-controls button.nav-link {
-  cursor: pointer;
-  background: #ffffff;
 }
 
 .replay-controls button.nav-link:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 
 .replay-slider {
   flex: 1;
   min-width: 200px;
-  accent-color: #2563eb;
+  accent-color: var(--color-accent);
 }
 
 .replay-lap-label {
-  font-weight: 600;
-  color: #475569;
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--color-text-strong);
   white-space: nowrap;
 }
 
+/* Podium highlighting -- gradient wash + accent stripe on the leading cell */
 .podium-1 {
-  background-color: #fefce8 !important;
+  background: linear-gradient(90deg, rgba(212, 175, 55, 0.2), rgba(212, 175, 55, 0.03)) !important;
 }
 
 .podium-2 {
-  background-color: #f8fafc !important;
+  background: linear-gradient(90deg, rgba(148, 163, 184, 0.22), rgba(148, 163, 184, 0.03)) !important;
 }
 
 .podium-3 {
-  background-color: #fffbeb !important;
+  background: linear-gradient(90deg, rgba(205, 127, 50, 0.2), rgba(205, 127, 50, 0.03)) !important;
+}
+
+.podium-1 td:first-child {
+  box-shadow: inset 3px 0 0 0 #d4af37;
+}
+
+.podium-2 td:first-child {
+  box-shadow: inset 3px 0 0 0 #94a3b8;
+}
+
+.podium-3 td:first-child {
+  box-shadow: inset 3px 0 0 0 #cd7f32;
 }
 
 .font-bold {
-  font-weight: 700;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.05em;
 }
 
 .driver-cell {
   font-weight: 600;
-  color: #0f172a;
+  color: var(--color-text-strong);
+}
+
+/* Constructor team-color chip */
+.team-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.7rem;
+  border-radius: 9999px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  white-space: nowrap;
+  transition: filter 0.15s ease;
+}
+
+.team-chip:hover {
+  filter: brightness(0.92);
+  text-decoration: none !important;
+}
+
+/* Compare pages: color each column header by that driver/constructor's team */
+.results-table th.compare-th-team {
+  border-bottom: 3px solid var(--team-color, var(--color-accent));
+  background: var(--color-bg);
+  background: color-mix(in srgb, var(--team-color, var(--color-accent)) 12%, var(--color-bg));
 }
 
 /* Status Pills for results */
@@ -494,15 +655,15 @@ body {
   justify-content: center;
   padding: 4rem 2rem;
   gap: 1rem;
-  color: #64748b;
+  color: var(--color-text-muted);
   font-weight: 500;
 }
 
 .spinner {
   width: 40px;
   height: 40px;
-  border: 4px solid #e2e8f0;
-  border-top-color: #2563eb;
+  border: 4px solid var(--color-border);
+  border-top-color: var(--color-accent);
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
 }
@@ -514,23 +675,24 @@ body {
 }
 
 .empty-state {
-  background: #ffffff;
-  border-radius: 0.75rem;
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
   padding: 3rem;
   text-align: center;
-  color: #64748b;
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
 }
 
 .error-banner {
   background: #fef2f2;
   border: 1px solid #fecaca;
+  border-left: 4px solid #b91c1c;
   color: #991b1b;
   padding: 1.25rem;
-  border-radius: 0.75rem;
+  border-radius: var(--radius-md);
   margin-bottom: 2rem;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: var(--shadow-sm);
 }
 
 /* Standings sparkline */
@@ -546,27 +708,94 @@ body {
   flex: 1;
   min-width: 2px;
   min-height: 3px;
-  background: #2563eb;
+  background: var(--color-accent);
   border-radius: 1px;
 }
 
-/* Homepage nav link to standings */
+/* Nav / back / button-style links */
 .nav-link {
   display: inline-flex;
   align-items: center;
-  font-weight: 600;
-  color: #2563eb;
+  gap: 0.35rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--color-accent);
   text-decoration: none;
-  font-size: 0.95rem;
-  background: #ffffff;
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
-  border: 1px solid #cbd5e1;
+  font-size: 0.85rem;
+  background: var(--color-surface);
+  padding: 0.55rem 1.15rem;
+  border-radius: 9999px;
+  border: 1.5px solid var(--color-accent);
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease, transform 0.15s ease,
+    box-shadow 0.15s ease;
 }
 
 .nav-link:hover {
-  text-decoration: underline;
-  border-color: #94a3b8;
+  background: var(--color-accent);
+  color: #ffffff;
+  text-decoration: none;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.nav-link:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Career/Season stats toggle */
+.stats-toggle-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.stats-toggle {
+  display: inline-flex;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 9999px;
+  padding: 0.2rem;
+}
+
+.stats-toggle-btn {
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  font-size: 0.8rem;
+  padding: 0.35rem 1rem;
+  border-radius: 9999px;
+  border: none;
+  background: transparent;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.stats-toggle-btn.active {
+  background: var(--color-accent);
+  color: #ffffff;
+}
+
+.stats-toggle-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.stats-season-select {
+  background: var(--color-surface);
+  border: 1px solid #cbd5e1;
+  border-radius: var(--radius-sm);
+  padding: 0.35rem 0.75rem;
+  font-weight: 600;
 }
 
 /* Driver/constructor compare form */
@@ -575,11 +804,11 @@ body {
   flex-wrap: wrap;
   gap: 1.25rem;
   align-items: flex-end;
-  background: #ffffff;
+  background: var(--color-surface);
   padding: 1.25rem;
-  border-radius: 0.75rem;
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
   margin-bottom: 2rem;
 }
 
@@ -590,9 +819,9 @@ body {
 }
 
 .compare-field .season-selector {
-  background: #f8fafc;
+  background: var(--color-bg);
   border: 1px solid #cbd5e1;
-  border-radius: 0.5rem;
+  border-radius: var(--radius-sm);
   padding: 0.5rem 0.75rem;
   min-width: 160px;
 }
