@@ -389,6 +389,52 @@ body {
   background: #f8fafc;
 }
 
+.results-table td a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.results-table td a:hover {
+  text-decoration: underline;
+  color: #2563eb;
+}
+
+/* Race replay controls */
+.replay-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  background: #ffffff;
+  padding: 1.25rem;
+  border-radius: 0.75rem;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+  margin-bottom: 2rem;
+}
+
+.replay-controls button.nav-link {
+  cursor: pointer;
+  background: #ffffff;
+}
+
+.replay-controls button.nav-link:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.replay-slider {
+  flex: 1;
+  min-width: 200px;
+  accent-color: #2563eb;
+}
+
+.replay-lap-label {
+  font-weight: 600;
+  color: #475569;
+  white-space: nowrap;
+}
+
 .podium-1 {
   background-color: #fefce8 !important;
 }
@@ -521,4 +567,32 @@ body {
 .nav-link:hover {
   text-decoration: underline;
   border-color: #94a3b8;
+}
+
+/* Driver/constructor compare form */
+.compare-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  align-items: flex-end;
+  background: #ffffff;
+  padding: 1.25rem;
+  border-radius: 0.75rem;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+  margin-bottom: 2rem;
+}
+
+.compare-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.compare-field .season-selector {
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  min-width: 160px;
 }

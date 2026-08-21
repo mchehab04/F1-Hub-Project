@@ -112,6 +112,11 @@ export default function RaceDetailPage() {
           <span className={getStatusBadgeClass(race.status)}>{race.status}</span>
         </div>
         <h1 className="title" style={{ marginTop: '0.5rem', marginBottom: '0.5rem' }}>{race.name}</h1>
+        {race.status === 'completed' && race.season >= 2018 && (
+          <Link href={`/races/${race.race_id}/replay`} className="nav-link">
+            Watch Replay
+          </Link>
+        )}
         <div className="race-header-meta">
           <span>
             <strong>Circuit ID:</strong> {race.circuit_id}

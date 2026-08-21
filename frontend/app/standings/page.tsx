@@ -90,6 +90,14 @@ export default function StandingsPage() {
             Championship Standings
           </h1>
           <p className="subtitle">Driver and constructor points, wins, and podiums.</p>
+          <div style={{ display: 'flex', gap: '0.75rem', marginTop: '0.75rem' }}>
+            <Link href="/drivers/compare" className="nav-link">
+              Compare Drivers
+            </Link>
+            <Link href="/constructors/compare" className="nav-link">
+              Compare Constructors
+            </Link>
+          </div>
         </div>
         {!loadingSeasons && seasons.length > 0 && (
           <div className="season-selector-wrapper">
@@ -152,8 +160,14 @@ export default function StandingsPage() {
                     {driverStandings.map((standing) => (
                       <tr key={standing.driver_id} className={podiumClass(standing.position)}>
                         <td className="font-bold">{standing.position}</td>
-                        <td className="driver-cell">{standing.driver_id}</td>
-                        <td>{standing.constructor_name}</td>
+                        <td className="driver-cell">
+                          <Link href={`/drivers/${standing.driver_id}`}>{standing.driver_id}</Link>
+                        </td>
+                        <td>
+                          <Link href={`/constructors/${standing.constructor_id}`}>
+                            {standing.constructor_name}
+                          </Link>
+                        </td>
                         <td className="font-bold">{standing.points}</td>
                         <td>{standing.wins}</td>
                         <td>{standing.podiums}</td>
@@ -191,7 +205,11 @@ export default function StandingsPage() {
                     {constructorStandings.map((standing) => (
                       <tr key={standing.constructor_id} className={podiumClass(standing.position)}>
                         <td className="font-bold">{standing.position}</td>
-                        <td className="driver-cell">{standing.constructor_id}</td>
+                        <td className="driver-cell">
+                          <Link href={`/constructors/${standing.constructor_id}`}>
+                            {standing.constructor_id}
+                          </Link>
+                        </td>
                         <td className="font-bold">{standing.points}</td>
                         <td>{standing.wins}</td>
                         <td>{standing.podiums}</td>
